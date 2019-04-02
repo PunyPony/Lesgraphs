@@ -11,7 +11,7 @@ def read_graph(path):
   return mygraph
 
 def draw(Gs):
-    viridis = cm.get_cmap('viridis')
+    viridis = cm.get_cmap('spring')
     color = iter(viridis(np.linspace(0, 1, len(Gs))))
     for G in Gs:
         nx.draw(G, with_labels=True, font_weight='bold',
@@ -43,7 +43,7 @@ def best_partition(G):
 # G = test_graph()
 
 
-G = nx.erdos_renyi_graph(1000, 0.30)
+G = nx.erdos_renyi_graph(2000, 0.15)
 G = max(nx.connected_component_subgraphs(G), key=len)
 G = nx.OrderedGraph(G) # not necessary in python > 3.6
 
@@ -56,12 +56,12 @@ best_partition(G)
 
 bfs_order = list(nx.bfs_tree(G,0))
 #print(bfs_order)
-
 #print(G.node)
 
 mapping = dict(zip(G.node, bfs_order))
 #print(mapping)
 H = nx.relabel.relabel_nodes(G, mapping)
 best_partition(H)
-#draw([G, H])
+
+#draw([G,H])
 
